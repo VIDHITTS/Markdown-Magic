@@ -41,7 +41,7 @@ width:100vw;
 background:var(--background_colour);
 }
 .app-header{
-padding:1rem 2rem;
+padding:0.6rem 1.4rem;
 background:var(--light_background_colour);
 border-bottom:1px solid var(--border_colour);
 width:100%;
@@ -51,13 +51,13 @@ align-items:center;
 }
 .app-header h1{
 margin:-1px;
-font-size:1.8rem;
+font-size:1.6rem;
 color:var(--main_colour);
 font-weight:900;
 letter-spacing:1px;
 }
 .app-header p{
-margin-top:0.5rem;
+margin-top:0.4rem;
 color:var(--another_text_color);
 font-size:0.9rem;
 }
