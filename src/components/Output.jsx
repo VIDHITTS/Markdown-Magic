@@ -10,7 +10,7 @@ export default function Output({
   previewonlyframe,
 }) {
   return (
-    <div className={`magic-output ${previewonlyframe ? "preview-only" : ""}`}>
+    <div className={`magic-output`}>
       <div className="magic-output-heading">
         <span>LIVE PREVIEW</span>
         <button
@@ -22,7 +22,6 @@ export default function Output({
       </div>
       <iframe
         srcDoc={usercode}
-        className={previewonlyframe ? "previewonlyframe" : ""}
       />
       {show && (
         <ConsolePanel

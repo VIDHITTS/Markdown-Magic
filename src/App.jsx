@@ -1,4 +1,10 @@
+"use client";
 import React, { useState, useEffect } from "react";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
 import "./App.css";
 import Header from "./components/Header.jsx";
 import Selector from "./components/Selector.jsx";
@@ -67,22 +73,27 @@ export default function App() {
           setconsole={setconsole}
           consoledata={consoledata}
           setconsoledata={setconsoledata}
-          previewonlyframe={true}
         />
       ) : (
         <div className="main-magic">
-          <div className="user-magic">
-            <Selector tab={tab} settab={settab} />
-            <UserEditor tab={tab} value={value} onChange={onChange} />
-          </div>
-          <Output
-            usercode={usercode}
-            show={show}
-            setconsole={setconsole}
-            consoledata={consoledata}
-            setconsoledata={setconsoledata}
-            previewonlyframe={false}
-          />
+          <ResizablePanelGroup direction="horizontal">
+            <ResizablePanel>
+              <div className="user-magic">
+                <Selector tab={tab} settab={settab} />
+                <UserEditor tab={tab} value={value} onChange={onChange} />
+              </div>
+            </ResizablePanel>
+            <ResizableHandle withHandle />
+            <ResizablePanel>
+              <Output
+                usercode={usercode}
+                show={show}
+                setconsole={setconsole}
+                consoledata={consoledata}
+                setconsoledata={setconsoledata}
+              />
+            </ResizablePanel>
+          </ResizablePanelGroup>
         </div>
       )}
     </div>
