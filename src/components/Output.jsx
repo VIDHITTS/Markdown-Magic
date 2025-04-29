@@ -22,6 +22,7 @@ export default function Output({
       </div>
       <iframe
         srcDoc={usercode}
+        className="preview-frame"
       />
       {show && (
         <ConsolePanel

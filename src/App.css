@@ -9,6 +9,7 @@
   --another_text_color: #888888;
   --speedy_speed: 0.3s;
   --tab-inactive: #888888;
+  
 }
 [theme="light"] {
   --background_colour: #ffffff;
@@ -159,7 +160,9 @@ body {
 .magic-output {
   display: flex;
   flex-direction: column;
-  min-width: 200px;
+  height: 100%;
+  width: 100%;
+  background-color: var(--background_colour);
   border: 1px solid var(--border_colour);
 }
 
@@ -170,6 +173,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid var(--border_colour);
 }
 
 .console-button {
@@ -189,9 +193,12 @@ body {
   color: var(--background_colour);
 }
 
-.magic-output iframe {
+.preview-frame {
   flex: 1;
+  width: 100%;
+  height: 100%;
   border: none;
+  background-color: var(--background_colour);
 }
 
 .magic-console {
@@ -237,6 +244,7 @@ body {
   font-family: "Fira Code", "Consolas", monospace;
   font-size: 0.9rem;
   color: var(--main_colour);
+  background-color: var(--background_colour);
 }
 
 .magic-line {
@@ -297,11 +305,81 @@ body {
   height: 100%;
 }
 .main-magic {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   flex: 1;
   display: flex;
+  overflow: hidden;
+  width: 100%;
+  height: calc(100vh - 2rem);
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--background_colour);
+  position: relative;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 250px;
+  padding: 1rem;
+  transition: margin-left 0.3s ease;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--background_colour);
+  color: var(--text_colour);
+}
+
+.sidebar.collapsed+.main-content {
+  margin-left: 60px;
+}
+
+[theme="dark"].app-container {
+  background-color: var(--background_colour);
+}
+
+[theme="dark"].main-content {
+  background-color: var(--background_colour);
+  color: var(--text_colour);
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+  }
+  
+  .sidebar {
+    position: fixed;
+    left: -250px;
+  }
+  
+  .sidebar.active {
+    left: 0;
+  }
+  
+  .sidebar.collapsed {
+    left: -60px;
+  }
+}
+
+.markdown-magic {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+.main-magic {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  height: calc(100vh - 2rem);
+}
+
+.user-magic {
+  display: flex;
+  flex-direction: column;
   height: 100%;
   width: 100%;
-  overflow: hidden;
 }
