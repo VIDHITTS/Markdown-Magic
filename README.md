@@ -26,7 +26,31 @@ Welcome to **Markdown Magic**, an interactive, real-time Markdown editor that en
 
 To run the app locally, follow these steps:
 
+## Setup and Installation
+
 1. Clone this repository:
    ```bash
    git clone https://github.com/yourusername/markdown-magic.git
    cd markdown-magic
+   ```
+
+2. Install the required dependencies:
+   ```bash
+   npm install
+   ```
+
+   This will install the following dependencies:
+
+   - `react`
+   - `jszip`
+   - `file-saver`
+   - `tailwindcss`
+   - `shadcn`
+   - `prettier` (for code formatting, if implemented)
+
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open your browser and go to `http://localhost:5173` to view the project.
