@@ -10,6 +10,8 @@ import UserEditor from "./components/UserEditor.jsx";
 import Output from "./components/Output.jsx";
 import Sidebar from "./components/Sidebar.jsx";
 import "./App.css";
+import JSZip from "jszip"
+import { saveAs } from "file-saver"
 
 export default function App() {
   const [htmlcode, sethtmlcode] = useState("<h1>Hello World!</h1>");
@@ -57,6 +59,17 @@ export default function App() {
     else setjscode(e.target.value);
   };
 
+  const downloadZip=()=>{
+    const zip=new JSZip()
+    zip.file("index.html",htmlcode)
+    zip.file("style.css",csscode)
+    zip.file("script.js",jscode)
+    zip.generateAsync({type:"blob"}).then(content=>{
+      saveAs(content,"project.zip")
+    })
+  }
+  
+
   return (
     <div className="app-container">
       <Sidebar
@@ -64,6 +77,7 @@ export default function App() {
         setdarktheme={setdarktheme}
         showonlypreview={showonlypreview}
         setshowpreview={setshowpreview}
+        downloadZip={downloadZip} 
       />
       <div className="main-content">
         {showonlypreview ? (

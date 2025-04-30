@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Sidebar.css";
 
-const Sidebar = ({ dark, setdarktheme, showonlypreview, setshowpreview }) => {
+const Sidebar = ({ dark, setdarktheme, showonlypreview, setshowpreview,downloadZip }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
@@ -44,6 +44,12 @@ const Sidebar = ({ dark, setdarktheme, showonlypreview, setshowpreview }) => {
                 <span className="nav-text">
                   {dark ? "Light Mode" : "Dark Mode"}
                 </span>
+              </button>
+            </li>
+            <li className="nav-item">
+              <button onClick={downloadZip} className="nav-link">
+                <span className="nav-icon">📥</span>
+                <span className="nav-text">Download as ZIP</span>
               </button>
             </li>
           </ul>
