@@ -44,12 +44,12 @@ const getCodebyId = async (req, res) => {
                 id: id
             }
         })
-        return res.status(200).json({ message: "Codes fetched successfully", project: project })  
+        return res.status(200).json({ message: "Codes fetched successfully", project: project })
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Internal Server Error" });
     }
-}   
+}
 
 const deleteCode = async (req, res) => {
     try {
@@ -62,7 +62,7 @@ const deleteCode = async (req, res) => {
                 id: id
             }
         })
-        return res.status(200).json({ message: "Codes deleted successfully"})  
+        return res.status(200).json({ message: "Codes deleted successfully" })
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Internal Server Error" });
@@ -71,7 +71,7 @@ const deleteCode = async (req, res) => {
 
 const updateCode = async (req, res) => {
     try {
-        const { id,htmlCode,cssCode,jsCode } = req.params;
+        const { id, htmlCode, cssCode, jsCode } = req.params;
         if (!id) {
             return res.status(400).json({ message: "Code id is required" });
         }
@@ -85,11 +85,42 @@ const updateCode = async (req, res) => {
                 jsCode: jsCode
             }
         })
-        return res.status(200).json({ message: "Codes updated successfully", project: project })  
+        return res.status(200).json({ message: "Codes updated successfully", project: project })
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Internal Server Error" });
     }
 }
 
-module.exports = { creator, getallCodes, getCodebyId,deleteCode,updateCode }
+const updateMetadata = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { title, description } = req.body;
+
+        if (!id) {
+            return res.status(400).json({ message: "Project id is required" });
+        }
+
+        if (!title && !description) {
+            return res.status(400).json({ message: "At least one field (title or description) is required to update" });
+        }
+
+        const updateData = {};
+        if (title !== undefined) updateData.title = title;
+        if (description !== undefined) updateData.description = description;
+
+        const project = await prisma.project.update({
+            where: {
+                id: id
+            },
+            data: updateData
+        })
+
+        return res.status(200).json({ message: "Project metadata updated successfully", project: project })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+module.exports = { creator, getallCodes, getCodebyId, deleteCode, updateCode, updateMetadata }
