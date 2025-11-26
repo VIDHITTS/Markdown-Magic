@@ -10,14 +10,15 @@ app.use(express.json())
 app.use(cookieParser())
 
 const authRouter = require("./authService/router.js");
-
-
-
+const storageRouter=require("./storageService/router.js");
 
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
+
 app.use("/api/auth",authRouter)
+app.use("/api/code",storageRouter)
+
 app.listen(3000, () => {
     console.log("Server started on port 3000");
 });
