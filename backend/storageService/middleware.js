@@ -1,20 +1,20 @@
-const jwt=require("jsonwebtoken")
+const jwt = require("jsonwebtoken")
 
-const middleware = async (req,res,next)=>{
-    const h=req.headers.authorization
-    
-    if(!h)return res.status(401).json({msg:"No token"})
+const middleware = async (req, res, next) => {
 
-    const t=h.split(" ")[1]
-    
-    if(!t)return res.status(401).json({msg:"Invalid token"})
+    const token = req.cookies.authToken
 
-    try{
-        const d=jwt.verify(t,process.env.JWT_SECRET)
-        req.user=d
+    if (!token) {
+        return res.status(401).json({ msg: "No token provided" })
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        req.user = decoded
         next()
-    }catch(e){
-        res.status(401).json({msg:"Token expired or invalid"})
+    } catch (e) {
+        return res.status(401).json({ msg: "Token expired or invalid" })
     }
 }
-module.exports={middleware}
+
+module.exports = { middleware }

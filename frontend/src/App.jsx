@@ -1,116 +1,107 @@
-"use client";
 import React, { useState, useEffect } from "react";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
-import Selector from "./components/Selector.jsx";
-import UserEditor from "./components/UserEditor.jsx";
-import Output from "./components/Output.jsx";
-import Sidebar from "./components/Sidebar.jsx";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Home from "./pages/Home.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import Editor from "./pages/Editor.jsx";
+import Profile from "./pages/Profile.jsx";
 import "./App.css";
-import JSZip from "jszip"
-import { saveAs } from "file-saver"
 
 export default function App() {
-  const [htmlcode, sethtmlcode] = useState("<h1>Hello World!</h1>");
-  const [csscode, setcsscode] = useState("h1{color:#00ff00}");
-  const [jscode, setjscode] = useState('console.log("Hello from JS")');
-  const [tab, settab] = useState("html");
-  const [consoledata, setconsoledata] = useState([]);
-  const [show, setconsole] = useState(false);
-  const [dark, setdarktheme] = useState(true);
-
-  const [showonlypreview, setshowpreview] = useState(false);
-  useEffect(() => {
-    document.documentElement.setAttribute("theme", dark ? "dark" : "light");
-  }, [dark]);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem("theme");
+    return saved || "dark";
+  });
 
   useEffect(() => {
-    const handler = (e) => {
-      if (e.data.type === "console") {
-        setconsoledata((prev) => {
-          const message = e.data.args.join(" ");
-          return [...prev, message];
-        });
-      }
-    };
-    window.addEventListener("message", handler);
-    return () => window.removeEventListener("message", handler);
+    checkAuth();
   }, []);
 
-  const usercode = `<html>
-    <head><style>${csscode}</style></head>
-    <body>${htmlcode}
-      <script>
-        const _log=console.log
-        console.log=(...a)=>{_log(...a);parent.postMessage({type:'console',args:a},'*')}
-        try{${jscode}}catch(e){console.log('Error:',e.message)}
-      </script>
-    </body>
-    </html>`;
+  useEffect(() => {
+    document.documentElement.setAttribute("theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
-  const value = tab === "html" ? htmlcode : tab === "css" ? csscode : jscode;
+  const checkAuth = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/auth/me", {
+        credentials: "include",
+      });
 
-  const onChange = (e) => {
-    if (tab === "html") sethtmlcode(e.target.value);
-    else if (tab === "css") setcsscode(e.target.value);
-    else setjscode(e.target.value);
+      if (response.ok) {
+        const data = await response.json();
+        setUser(data.user);
+      }
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const downloadZip=()=>{
-    const zip=new JSZip()
-    zip.file("index.html",htmlcode)
-    zip.file("style.css",csscode)
-    zip.file("script.js",jscode)
-    zip.generateAsync({type:"blob"}).then(content=>{
-      saveAs(content,"project.zip")
-    })
+  const toggleTheme = () => {
+    setTheme(prevTheme => {
+      const newTheme = prevTheme === "dark" ? "light" : "dark";
+      return newTheme;
+    });
+  };
+
+  if (loading) {
+    return (
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+        background: "var(--background)",
+        color: "var(--foreground)"
+      }}>
+        <div style={{
+          width: "48px",
+          height: "48px",
+          border: "4px solid var(--muted)",
+          borderTopColor: "var(--primary)",
+          borderRadius: "50%",
+          animation: "spin 0.8s linear infinite"
+        }}></div>
+      </div>
+    );
   }
-  
 
   return (
-    <div className="app-container">
-      <Sidebar
-        dark={dark}
-        setdarktheme={setdarktheme}
-        showonlypreview={showonlypreview}
-        setshowpreview={setshowpreview}
-        downloadZip={downloadZip} 
-      />
-      <div className="main-content">
-        {showonlypreview ? (
-          <Output
-            usercode={usercode}
-            show={show}
-            setconsole={setconsole}
-            consoledata={consoledata}
-            setconsoledata={setconsoledata}
-          />
-        ) : (
-          <div className="main-magic">
-            <ResizablePanelGroup direction="horizontal">
-              <ResizablePanel>
-                <div className="user-magic">
-                  <Selector tab={tab} settab={settab} />
-                  <UserEditor tab={tab} value={value} onChange={onChange} />
-                </div>
-              </ResizablePanel>
-              <ResizableHandle withHandle />
-              <ResizablePanel>
-                <Output
-                  usercode={usercode}
-                  show={show}
-                  setconsole={setconsole}
-                  consoledata={consoledata}
-                  setconsoledata={setconsoledata}
-                />
-              </ResizablePanel>
-            </ResizablePanelGroup>
-          </div>
-        )}
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={user ? <Navigate to="/dashboard" /> : <Home theme={theme} toggleTheme={toggleTheme} />}
+        />
+        <Route
+          path="/login"
+          element={user ? <Navigate to="/dashboard" /> : <Login setUser={setUser} theme={theme} toggleTheme={toggleTheme} />}
+        />
+        <Route
+          path="/register"
+          element={user ? <Navigate to="/dashboard" /> : <Register setUser={setUser} theme={theme} toggleTheme={toggleTheme} />}
+        />
+        <Route
+          path="/dashboard"
+          element={user ? <Dashboard user={user} setUser={setUser} theme={theme} toggleTheme={toggleTheme} /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/profile"
+          element={user ? <Profile user={user} setUser={setUser} theme={theme} toggleTheme={toggleTheme} /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/editor/:id"
+          element={user ? <Editor user={user} theme={theme} toggleTheme={toggleTheme} /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/editor"
+          element={user ? <Editor user={user} theme={theme} toggleTheme={toggleTheme} /> : <Navigate to="/" />}
+        />
+      </Routes>
+    </Router>
   );
 }
