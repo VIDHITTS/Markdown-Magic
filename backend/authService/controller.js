@@ -17,7 +17,7 @@ const register = async (req, res) => {
                 password: hashedPassword
             }
         })
-        console.log(user)
+        // console.log(user)
         delete user.password
         const token = jwt.sign(
             { userId: user.id },
@@ -76,4 +76,15 @@ const login = async (req, res) => {
         return res.status(500).json({ message: "Internal Server Error" });
     }
 }
-module.exports = { register, login }
+
+const logout = async (req, res) => {
+    try {
+        // console.log("request reached")
+        res.clearCookie("authToken")
+        return res.status(200).json({ message: "User logged out successfully" })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+}   
+module.exports = { register, login, logout }
