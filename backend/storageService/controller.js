@@ -32,6 +32,7 @@ const getallCodes = async (req, res) => {
         return res.status(500).json({ message: "Internal Server Error" });
     }
 }
+
 const getCodebyId = async (req, res) => {
     try {
         const { id } = req.params;
@@ -49,6 +50,7 @@ const getCodebyId = async (req, res) => {
         return res.status(500).json({ message: "Internal Server Error" });
     }
 }   
+
 const deleteCode = async (req, res) => {
     try {
         const { id } = req.params;
@@ -67,4 +69,27 @@ const deleteCode = async (req, res) => {
     }
 }
 
-module.exports = { creator, getallCodes, getCodebyId,deleteCode }
+const updateCode = async (req, res) => {
+    try {
+        const { id,htmlCode,cssCode,jsCode } = req.params;
+        if (!id) {
+            return res.status(400).json({ message: "Code id is required" });
+        }
+        const project = await prisma.project.update({
+            where: {
+                id: id
+            },
+            data: {
+                htmlCode: htmlCode,
+                cssCode: cssCode,
+                jsCode: jsCode
+            }
+        })
+        return res.status(200).json({ message: "Codes updated successfully", project: project })  
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+module.exports = { creator, getallCodes, getCodebyId,deleteCode,updateCode }

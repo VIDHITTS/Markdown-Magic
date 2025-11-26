@@ -25,9 +25,9 @@ model Project {
   id          String   @id @default(cuid())
   title       String
   description String?  @db.Text
-  htmlContent String   @db.LongText
-  cssContent  String   @db.LongText
-  jsContent   String   @db.LongText
+  htmlCode String   @db.LongText
+  cssCode  String   @db.LongText
+  jsCode   String   @db.LongText
   isPublic    Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
