@@ -1,4 +1,4 @@
-# Markdown Magic
+# SnapCode
 
 A modern code editor for HTML, CSS, and JavaScript with live preview and project management.
 

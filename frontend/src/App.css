@@ -1,26 +1,26 @@
 :root {
-  --background_colour: #000000;
-  --light_background_colour: #0a0a0a;
-  --backy_colour: #0a0a0a;
-  --border_colour: #1a1a1a;
-  --main_colour: #00ff00;
-  --red_colour: #ff0000;
-  --text_colour: #00ff00;
-  --another_text_color: #00cc00;
-  --speedy_speed: 0.3s;
-  --tab-inactive: #00cc00;
+  --background_colour: #ffffff;
+  --light_background_colour: #f3f3f3;
+  --backy_colour: #e5e5e5;
+  --border_colour: #d4d4d4;
+  --main_colour: #007acc;
+  --red_colour: #e51400;
+  --text_colour: #1e1e1e;
+  --another_text_color: #6e6e6e;
+  --speedy_speed: 0.2s;
+  --tab-inactive: #6e6e6e;
 }
 
-[theme="light"] {
-  --background_colour: #fafbfc;
-  --light_background_colour: #ffffff;
-  --backy_colour: #f5f6f7;
-  --border_colour: #e5e7eb;
-  --main_colour: #3260a8;
-  --red_colour: #dc2626;
-  --text_colour: #1a1a1a;
-  --another_text_color: #6b6b6b;
-  --tab-inactive: #6b6b6b;
+[theme="dark"] {
+  --background_colour: #1e1e1e;
+  --light_background_colour: #252526;
+  --backy_colour: #2d2d30;
+  --border_colour: #3c3c3c;
+  --main_colour: #007acc;
+  --red_colour: #f14c4c;
+  --text_colour: #d4d4d4;
+  --another_text_color: #858585;
+  --tab-inactive: #858585;
 }
 
 * {
@@ -39,7 +39,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.markdown-magic {
+.snapcode {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -48,7 +48,7 @@ body {
 }
 
 .magic-heading {
-  padding: 0.6rem 1.4rem;
+  padding: 0.75rem 1.5rem;
   background: var(--light_background_colour);
   border-bottom: 1px solid var(--border_colour);
   width: 100%;
@@ -58,49 +58,53 @@ body {
 }
 
 .magic-heading h1 {
-  margin: -1px;
-  font-size: 1.6rem;
+  margin: 0;
+  font-size: 1.5rem;
   color: var(--main_colour);
-  font-weight: 900;
-  letter-spacing: 1px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .magic-heading p {
-  margin-top: 0.4rem;
+  margin-top: 0.25rem;
   color: var(--another_text_color);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 .only-button {
   background: transparent;
   color: var(--text_colour);
-  border: 2px solid var(--main_colour);
-  border-radius: 30px;
-  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--border_colour);
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
   cursor: pointer;
-  letter-spacing: 1px;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all var(--speedy_speed);
 }
 
 .darkmagic {
   background: transparent;
   color: var(--text_colour);
-  border: 2px solid var(--main_colour);
-  padding: 0.5rem 0.7rem;
-  border-radius: 30px;
+  border: 1px solid var(--border_colour);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all var(--speedy_speed);
 }
 
 .darkmagic:hover {
   background: var(--main_colour);
-  color: var(--background_colour);
+  color: white;
+  border-color: var(--main_colour);
 }
 
 .only-button:hover {
   background: var(--main_colour);
-  color: var(--background_colour);
+  color: white;
+  border-color: var(--main_colour);
 }
 
 .user-magic {
@@ -120,15 +124,16 @@ body {
 
 .option-bar button {
   flex: 1;
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   border: none;
   background: transparent;
   color: var(--tab-inactive);
-  font-size: 1.1rem;
+  font-size: 0.875rem;
   cursor: pointer;
   transition: all var(--speedy_speed);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.05em;
+  font-weight: 500;
   position: relative;
 }
 
@@ -144,6 +149,11 @@ body {
   transition: transform var(--speedy_speed);
 }
 
+.option-bar button:hover {
+  background: var(--light_background_colour);
+  color: var(--text_colour);
+}
+
 .option-bar button:hover::after {
   transform: scaleX(1);
 }
@@ -151,6 +161,7 @@ body {
 .option-bar button.active {
   color: var(--main_colour);
   font-weight: 600;
+  background: var(--light_background_colour);
 }
 
 .option-bar button.active::after {
@@ -160,7 +171,7 @@ body {
 .user-area {
   flex: 1;
   padding: 1rem;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   background: var(--light_background_colour);
   color: var(--text_colour);
   border: none;
@@ -168,7 +179,7 @@ body {
   resize: none;
   line-height: 1.6;
   tab-size: 2;
-  font-family: "Fira Code", "Consolas", "Monaco", monospace;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
 }
 
 .magic-output {
@@ -181,7 +192,7 @@ body {
 }
 
 .magic-output-heading {
-  padding: 0.5rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   background: var(--backy_colour);
   color: var(--text_colour);
   display: flex;
@@ -193,18 +204,19 @@ body {
 .console-button {
   background: transparent;
   color: var(--text_colour);
-  border: 2px solid var(--main_colour);
+  border: 1px solid var(--border_colour);
   padding: 0.5rem 1rem;
-  border-radius: 30px;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+  font-weight: 500;
   transition: all var(--speedy_speed);
-  letter-spacing: 0.7px;
 }
 
 .console-button:hover {
   background: var(--main_colour);
-  color: var(--background_colour);
+  color: white;
+  border-color: var(--main_colour);
 }
 
 .preview-frame {
@@ -223,49 +235,69 @@ body {
 }
 
 .console-heading {
-  padding: 0.5rem 1.6rem;
+  padding: 0.625rem 1.5rem;
   background: var(--backy_colour);
   color: var(--text_colour);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   border-bottom: 1px solid var(--border_colour);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  letter-spacing: 1px;
+  font-weight: 500;
 }
 
 .magic-clear {
   background: transparent;
   color: var(--text_colour);
-  border: 2px solid var(--main_colour);
-  padding: 0.5rem 0.9rem;
-  border-radius: 32px;
+  border: 1px solid var(--border_colour);
+  padding: 0.5rem 0.875rem;
+  border-radius: 4px;
   cursor: pointer;
   font-size: 0.8rem;
+  font-weight: 500;
   transition: all var(--speedy_speed);
-  letter-spacing: 1px;
 }
 
 .magic-clear:hover {
   background: var(--red_colour);
-  color: var(--background_colour);
+  color: white;
+  border-color: var(--red_colour);
 }
 
 .magic-console-output {
   flex: 1;
   padding: 1rem 1.5rem;
   overflow-y: auto;
-  font-family: "Fira Code", "Consolas", monospace;
-  font-size: 0.9rem;
-  color: var(--main_colour);
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 0.85rem;
+  color: var(--text_colour);
   background-color: var(--background_colour);
 }
 
+.magic-console-output::-webkit-scrollbar {
+  width: 10px;
+}
+
+.magic-console-output::-webkit-scrollbar-track {
+  background: var(--background_colour);
+}
+
+.magic-console-output::-webkit-scrollbar-thumb {
+  background: var(--border_colour);
+  border-radius: 5px;
+}
+
+.magic-console-output::-webkit-scrollbar-thumb:hover {
+  background: var(--main_colour);
+}
+
 .magic-line {
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.25rem;
   white-space: pre-wrap;
-  padding: 0.3rem;
+  padding: 0.25rem 0.5rem;
   border-left: 2px solid var(--main_colour);
+  background: var(--light_background_colour);
+  border-radius: 2px;
 }
 
 @media (max-width: 768px) {
@@ -294,7 +326,7 @@ body {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding: 0.7rem;
+  padding: 0;
   border: none;
 }
 
@@ -338,15 +370,6 @@ body {
   width: 100%;
 }
 
-[theme="dark"].app-container {
-  background-color: var(--background_colour);
-}
-
-[theme="dark"].main-content {
-  background-color: var(--background_colour);
-  color: var(--text_colour);
-}
-
 @media (max-width: 768px) {
   .main-content {
     margin-left: 0;
@@ -366,7 +389,7 @@ body {
   }
 }
 
-.markdown-magic {
+.snapcode {
   display: flex;
   flex-direction: column;
   height: 100vh;

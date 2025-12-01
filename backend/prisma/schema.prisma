@@ -17,6 +17,8 @@ model User {
   updatedAt DateTime @updatedAt
 
   projects Project[]
+  likes    Like[]
+  forks    Fork[]
 
   @@map("users")
 }
@@ -35,6 +37,46 @@ model Project {
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  likes Like[]
+  forks Fork[]
+
+  forkedFromId String?
+  forkedFrom   Project?  @relation("ProjectForks", fields: [forkedFromId], references: [id], onDelete: SetNull)
+  forkedBy     Project[] @relation("ProjectForks")
+
   @@index([userId])
+  @@index([isPublic])
+  @@index([forkedFromId])
   @@map("projects")
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, projectId])
+  @@index([projectId])
+  @@index([userId])
+  @@map("likes")
+}
+
+model Fork {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  projectId       String
+  originalProject Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([userId])
+  @@map("forks")
 }

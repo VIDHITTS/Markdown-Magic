@@ -1,0 +1,189 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background: var(--card);
+  border-radius: 4px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  animation: slideUp 0.3s ease;
+  border: 1px solid var(--border);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.modal-close {
+  background: transparent;
+  border: 1px solid transparent;
+  font-size: 1.75rem;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  background: var(--muted);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+
+.modal-body {
+  padding: 1rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--muted-foreground);
+}
+
+.modal-empty {
+  text-align: center;
+  padding: 3rem;
+  color: var(--muted-foreground);
+}
+
+.modal-empty p {
+  margin: 0;
+}
+
+.likes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.like-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.like-item:hover {
+  background: var(--muted);
+}
+
+.like-user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.like-user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.like-user-name {
+  font-weight: 600;
+  color: var(--foreground);
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.like-user-username {
+  color: var(--muted-foreground);
+  font-size: 0.85rem;
+}
+
+.like-date {
+  color: var(--muted-foreground);
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    width: 95%;
+    max-height: 85vh;
+  }
+
+  .modal-header {
+    padding: 1rem;
+  }
+
+  .modal-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .like-item {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .like-user-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+}

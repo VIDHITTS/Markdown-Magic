@@ -40,108 +40,124 @@
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 4px;
 
-  /* Light theme - Clean Blue and Sand palette */
-  --background: #fafbfc;
-  --foreground: #1a1a1a;
+  /* Light theme - VS Code Light+ inspired */
+  --background: #ffffff;
+  --foreground: #1e1e1e;
 
-  --card: #ffffff;
-  --card-foreground: #1a1a1a;
+  --card: #f3f3f3;
+  --card-foreground: #1e1e1e;
 
   --popover: #ffffff;
-  --popover-foreground: #1a1a1a;
+  --popover-foreground: #1e1e1e;
 
-  /* Primary Blue */
-  --primary: #3260a8;
+  /* Primary - VS Code Blue */
+  --primary: #007acc;
   --primary-foreground: #ffffff;
-  --primary-light: #5b8ec4;
-  --primary-dark: #2a4d85;
+  --primary-light: #4fc3f7;
+  --primary-dark: #005a9e;
 
-  /* Secondary Sand */
-  --secondary: #8D7B44;
+  /* Secondary - VS Code Orange */
+  --secondary: #f59e0b;
   --secondary-foreground: #ffffff;
-  --secondary-light: #a89560;
-  --secondary-dark: #6b5d2f;
+  --secondary-light: #fbbf24;
+  --secondary-dark: #d97706;
 
   /* Muted Colors */
-  --muted: #f5f6f7;
-  --muted-foreground: #6b6b6b;
+  --muted: #f3f3f3;
+  --muted-foreground: #6e6e6e;
 
   /* Accent Colors */
-  --accent: #8D7B44;
-  --accent-foreground: #ffffff;
-  --accent-blue: #e8f1fb;
-  --accent-sand: #f5f0e6;
+  --accent: #e5e5e5;
+  --accent-foreground: #1e1e1e;
+  --accent-blue: #dbeafe;
+  --accent-orange: #fef3c7;
 
-  --destructive: #dc2626;
+  --destructive: #e51400;
 
   /* Borders and Inputs */
-  --border: #e5e7eb;
-  --input: #e5e7eb;
-  --ring: #3260a8;
+  --border: #d4d4d4;
+  --input: #e5e5e5;
+  --ring: #007acc;
 
   /* Chart Colors */
-  --chart-1: #3260a8;
-  --chart-2: #8D7B44;
-  --chart-3: #5b8ec4;
-  --chart-4: #a89560;
-  --chart-5: #2a4d85;
+  --chart-1: #007acc;
+  --chart-2: #f59e0b;
+  --chart-3: #10b981;
+  --chart-4: #8b5cf6;
+  --chart-5: #ec4899;
 
   /* Sidebar Colors */
-  --sidebar: #3260a8;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #8D7B44;
+  --sidebar: #2c2c2c;
+  --sidebar-foreground: #cccccc;
+  --sidebar-primary: #007acc;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #2a4d85;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: rgba(255, 255, 255, 0.15);
-  --sidebar-ring: #8D7B44;
+  --sidebar-accent: #3c3c3c;
+  --sidebar-accent-foreground: #cccccc;
+  --sidebar-border: #454545;
+  --sidebar-ring: #007acc;
+
+  /* Editor specific */
+  --editor-background: #ffffff;
+  --editor-line-number: #237893;
+  --editor-selection: #add6ff;
 }
 
 [theme="dark"] {
-  /* Dark theme - Pure Black and Vibrant Green */
-  --background: #000000;
-  --foreground: #00ff00;
+  /* Dark theme - VS Code Dark+ inspired */
+  --background: #1e1e1e;
+  --foreground: #d4d4d4;
 
-  --card: #0a0a0a;
-  --card-foreground: #00ff00;
+  --card: #252526;
+  --card-foreground: #d4d4d4;
 
-  --popover: #0a0a0a;
-  --popover-foreground: #00ff00;
+  --popover: #252526;
+  --popover-foreground: #d4d4d4;
 
-  --primary: #00ff00;
-  --primary-foreground: #000000;
+  --primary: #007acc;
+  --primary-foreground: #ffffff;
+  --primary-light: #4fc3f7;
+  --primary-dark: #005a9e;
 
-  --secondary: #1a1a1a;
-  --secondary-foreground: #00ff00;
+  --secondary: #f59e0b;
+  --secondary-foreground: #ffffff;
+  --secondary-light: #fbbf24;
+  --secondary-dark: #d97706;
 
-  --muted: #1a1a1a;
-  --muted-foreground: #00cc00;
+  --muted: #2d2d30;
+  --muted-foreground: #858585;
 
-  --accent: #00ff00;
-  --accent-foreground: #000000;
+  --accent: #3c3c3c;
+  --accent-foreground: #d4d4d4;
+  --accent-blue: #1e3a5f;
+  --accent-orange: #4a3410;
 
-  --destructive: #ff0000;
+  --destructive: #f14c4c;
 
-  --border: #1a1a1a;
-  --input: #1a1a1a;
-  --ring: #00ff00;
+  --border: #3c3c3c;
+  --input: #3c3c3c;
+  --ring: #007acc;
 
-  --chart-1: #00ff00;
-  --chart-2: #00cc00;
-  --chart-3: #00dd00;
-  --chart-4: #00ee00;
-  --chart-5: #00bb00;
+  --chart-1: #007acc;
+  --chart-2: #f59e0b;
+  --chart-3: #10b981;
+  --chart-4: #8b5cf6;
+  --chart-5: #ec4899;
 
-  --sidebar: #000000;
-  --sidebar-foreground: #00ff00;
-  --sidebar-primary: #00ff00;
-  --sidebar-primary-foreground: #000000;
-  --sidebar-accent: #0a0a0a;
-  --sidebar-accent-foreground: #00ff00;
-  --sidebar-border: #1a1a1a;
-  --sidebar-ring: #00ff00;
+  --sidebar: #252526;
+  --sidebar-foreground: #cccccc;
+  --sidebar-primary: #007acc;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #2d2d30;
+  --sidebar-accent-foreground: #cccccc;
+  --sidebar-border: #3c3c3c;
+  --sidebar-ring: #007acc;
+
+  /* Editor specific */
+  --editor-background: #1e1e1e;
+  --editor-line-number: #858585;
+  --editor-selection: #264f78;
 }
 
 @layer base {
@@ -151,5 +167,93 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  code, pre {
+    font-family: "Consolas", "Monaco", "Courier New", monospace;
+  }
+}
+
+/* Custom Typography Utilities */
+@utility heading-1 {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--foreground);
+}
+
+@utility heading-2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--foreground);
+}
+
+@utility heading-3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+
+@utility body-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--foreground);
+}
+
+@utility body-small {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+}
+
+@utility code-text {
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Scrollbar Utilities */
+@utility custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--muted);
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--muted-foreground);
+  }
+}
+
+@utility thin-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
   }
 }

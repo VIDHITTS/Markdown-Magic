@@ -1,7 +1,7 @@
 /** @type {import("shadcn-ui").Config} */
 module.exports = {
     $schema: "https://ui.shadcn.com/schema.json",
-    name: "markdown-magic",
+    name: "snapcode",
     outDir: "./src/components/ui",
     componentDefaults: {
       className: "rounded-2xl shadow-md"

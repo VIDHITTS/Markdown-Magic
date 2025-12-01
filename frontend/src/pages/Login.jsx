@@ -67,8 +67,8 @@ const Login = ({ setUser, theme, toggleTheme }) => {
             >
                 <div className="auth-header">
                     <h1 className="auth-logo">
-                        <span className="logo-mark">Markdown</span>
-                        <span className="logo-magic">Magic</span>
+                        <span className="logo-mark">Snap</span>
+                        <span className="logo-magic">Code</span>
                     </h1>
                     <p className="auth-subtitle">Welcome back! Sign in to continue</p>
                 </div>

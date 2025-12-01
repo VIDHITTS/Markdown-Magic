@@ -8,8 +8,8 @@ const Sidebar = ({ dark, setdarktheme, showonlypreview, setshowpreview,downloadZ
     <div className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
       <div className="sidebar-header">
         <div className="sidebar-title">
-          <h2>Markdown</h2>
-          <h2>Magic</h2>
+          <h2>Snap</h2>
+          <h2>Code</h2>
         </div>
         <button
           className="toggle-btn"
