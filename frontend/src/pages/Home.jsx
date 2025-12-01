@@ -57,10 +57,7 @@ const Home = ({ theme, toggleTheme }) => {
 
         <nav className="home-nav">
           <div className="nav-logo">
-            <h1>
-              <span className="logo-mark">Snap</span>
-              <span className="logo-magic">Code</span>
-            </h1>
+            <h1>SnapCode</h1>
           </div>
           <div className="nav-buttons">
             <button
@@ -219,10 +216,7 @@ const Home = ({ theme, toggleTheme }) => {
       <footer className="home-footer">
         <div className="footer-content">
           <div className="footer-logo">
-            <h3>
-              <span className="logo-mark">Snap</span>
-              <span className="logo-magic">Code</span>
-            </h3>
+            <h3>SnapCode</h3>
             <p>Code, Preview, Create</p>
           </div>
           <div className="footer-links">

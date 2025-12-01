@@ -66,10 +66,7 @@ const Login = ({ setUser, theme, toggleTheme }) => {
                 transition={{ duration: 0.5 }}
             >
                 <div className="auth-header">
-                    <h1 className="auth-logo">
-                        <span className="logo-mark">Snap</span>
-                        <span className="logo-magic">Code</span>
-                    </h1>
+                    <h1 className="auth-logo">SnapCode</h1>
                     <p className="auth-subtitle">Welcome back! Sign in to continue</p>
                 </div>
 

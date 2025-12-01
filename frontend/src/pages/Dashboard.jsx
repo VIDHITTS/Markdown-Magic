@@ -117,10 +117,7 @@ const Dashboard = ({ user, setUser, theme, toggleTheme }) => {
     <div className="dashboard-container">
       <nav className="dashboard-nav">
         <div className="nav-brand">
-          <h1>
-            <span className="brand-mark">Snap</span>
-            <span className="brand-magic">Code</span>
-          </h1>
+          <h1>SnapCode</h1>
         </div>
         <div className="nav-actions">
           <button
