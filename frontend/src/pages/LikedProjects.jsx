@@ -182,8 +182,8 @@ const LikedProjects = ({ user, setUser, theme, toggleTheme }) => {
             ) : (
               <div className="projects-grid">
                 {projects.map((project) => (
-                  <div 
-                    key={project.id} 
+                  <div
+                    key={project.id}
                     className="project-card"
                     onClick={() => handleViewProject(project.id)}
                   >
@@ -207,12 +207,8 @@ const LikedProjects = ({ user, setUser, theme, toggleTheme }) => {
                     <div className="project-footer">
                       <div className="project-meta">
                         <div className="stat-group">
-                          <span className="stat">
-                            ❤️ {project.likesCount}
-                          </span>
-                          <span className="stat">
-                            🍴 {project.forksCount}
-                          </span>
+                          <span className="stat">❤️ {project.likesCount}</span>
+                          <span className="stat">🍴 {project.forksCount}</span>
                           <span className="stat">
                             Liked {formatDate(project.likedAt)}
                           </span>

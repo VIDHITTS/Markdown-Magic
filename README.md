@@ -5,6 +5,7 @@ A modern code editor for HTML, CSS, and JavaScript with live preview and project
 ## Setup
 
 ### Backend
+
 ```bash
 cd backend
 npm install
@@ -15,6 +16,7 @@ nodemon server.js
 ```
 
 ### Frontend
+
 ```bash
 cd frontend
 npm install
@@ -37,24 +39,3 @@ npm run dev
 **Backend:** Node.js, Express, Prisma, MySQL  
 **Auth:** JWT, Argon2
 
-## API Endpoints
-
-**Auth:**
-- `POST /api/auth/register`
-- `POST /api/auth/login`
-- `POST /api/auth/logout`
-
-**Projects:**
-- `GET /api/code/all`
-- `GET /api/code/:id`
-- `POST /api/code/create`
-- `PUT /api/code/:id`
-- `PATCH /api/code/:id/metadata`
-- `DELETE /api/code/:id`
-
-## Color Theme
-
-**Light Mode:**
-- Primary: `#3260a8` (Blue)
-- Secondary: `#8D7B44` (Sand)
-- Background: `#faf9f7`

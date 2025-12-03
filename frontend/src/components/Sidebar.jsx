@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import "./Sidebar.css";
 
-const Sidebar = ({ dark, setdarktheme, showonlypreview, setshowpreview,downloadZip }) => {
+const Sidebar = ({
+  dark,
+  setdarktheme,
+  showonlypreview,
+  setshowpreview,
+  downloadZip,
+}) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
