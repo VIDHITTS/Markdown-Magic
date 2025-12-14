@@ -1,4 +1,3 @@
-import React from "react";
 import ConsolePanel from "./Console";
 
 export default function Output({

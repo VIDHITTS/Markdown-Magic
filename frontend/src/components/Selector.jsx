@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Selector({ tab, settab }) {
   return (
     <div className="option-bar">

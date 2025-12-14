@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
     ResizableHandle,
@@ -81,7 +81,6 @@ export default function Editor({ user, theme, toggleTheme }) {
                 navigate("/login");
             }
         } catch (error) {
-            console.error("Error fetching project:", error);
         } finally {
             setLoading(false);
         }
@@ -110,7 +109,6 @@ export default function Editor({ user, theme, toggleTheme }) {
                 navigate("/login");
             }
         } catch (error) {
-            console.error("Error saving project:", error);
         } finally {
             if (!silent) setSaving(false);
         }
@@ -137,7 +135,6 @@ export default function Editor({ user, theme, toggleTheme }) {
                 setProjectDescription(description);
             }
         } catch (error) {
-            console.error("Error updating metadata:", error);
         }
     };
 

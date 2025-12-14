@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function UserEditor({ tab, value, onChange }) {
   return (
     <textarea

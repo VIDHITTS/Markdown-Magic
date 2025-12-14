@@ -6,7 +6,6 @@ import {
   GitFork,
   Eye,
   Calendar,
-  Search,
   Sun,
   Moon,
   Home,
@@ -45,7 +44,6 @@ const Browse = ({ user, theme, toggleTheme }) => {
         setPagination(data.pagination);
       }
     } catch (error) {
-      console.error("Error fetching projects:", error);
     } finally {
       setLoading(false);
     }
@@ -63,7 +61,6 @@ const Browse = ({ user, theme, toggleTheme }) => {
       );
 
       if (response.ok) {
-        // Update the project in the list
         setProjects(
           projects.map((project) => {
             if (project.id === projectId) {
@@ -79,11 +76,9 @@ const Browse = ({ user, theme, toggleTheme }) => {
           })
         );
       } else if (response.status === 401) {
-        // User not authenticated, redirect to login
         navigate("/login");
       }
     } catch (error) {
-      console.error("Error toggling like:", error);
     }
   };
 
@@ -99,16 +94,13 @@ const Browse = ({ user, theme, toggleTheme }) => {
 
       const data = await response.json();
       if (response.ok) {
-        // Navigate to the forked project editor
         navigate(`/editor/${data.project.id}`);
       } else if (response.status === 401) {
-        // User not authenticated, redirect to login
         navigate("/login");
       } else {
         alert(data.message);
       }
     } catch (error) {
-      console.error("Error forking project:", error);
     }
   };
 
@@ -167,7 +159,7 @@ const Browse = ({ user, theme, toggleTheme }) => {
             className="browse-nav-btn"
             title="My Liked Projects"
           >
-            ❤️ Liked
+            Liked
           </button>
           <button
             onClick={() => navigate("/profile")}

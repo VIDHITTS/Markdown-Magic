@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Sidebar.css";
 
 const Sidebar = ({
@@ -33,7 +33,7 @@ const Sidebar = ({
                 onClick={() => setshowpreview((s) => !s)}
               >
                 <span className="nav-icon">
-                  {showonlypreview ? "✏️" : "👁️"}
+                  {showonlypreview ? "Edit" : "Preview"}
                 </span>
                 <span className="nav-text">
                   {showonlypreview ? "Show Editor" : "Show Preview"}
@@ -45,7 +45,7 @@ const Sidebar = ({
                 className="nav-link"
                 onClick={() => setdarktheme((d) => !d)}
               >
-                <span className="nav-icon">{dark ? "☀️" : "🌙"}</span>
+                <span className="nav-icon">{dark ? "Light" : "Dark"}</span>
                 <span className="nav-text">
                   {dark ? "Light Mode" : "Dark Mode"}
                 </span>
@@ -53,7 +53,7 @@ const Sidebar = ({
             </li>
             <li className="nav-item">
               <button onClick={downloadZip} className="nav-link">
-                <span className="nav-icon">📥</span>
+                <span className="nav-icon">Download</span>
                 <span className="nav-text">Download as ZIP</span>
               </button>
             </li>

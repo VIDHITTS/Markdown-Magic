@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Console({ consoledata, setconsoledata }) {
   return (
     <div className="magic-console">

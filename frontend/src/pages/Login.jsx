@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { API_URL } from "../config/api.js";
@@ -39,7 +39,6 @@ const Login = ({ setUser, theme, toggleTheme }) => {
       const data = await response.json();
 
       if (response.ok) {
-        // Fetch full user data after login
         const meResponse = await fetch(`${API_URL}/api/auth/me`, {
           credentials: "include",
         });

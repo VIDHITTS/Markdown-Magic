@@ -27,7 +27,6 @@ const LikesModal = ({ projectId, isOpen, onClose }) => {
         setLikes(data.likes);
       }
     } catch (error) {
-      console.error("Error fetching likes:", error);
     } finally {
       setLoading(false);
     }
@@ -40,7 +39,7 @@ const LikesModal = ({ projectId, isOpen, onClose }) => {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2>
-            ❤️ Liked by {likes.length}{" "}
+            Liked by {likes.length}{" "}
             {likes.length === 1 ? "person" : "people"}
           </h2>
           <button className="modal-close" onClick={onClose}>

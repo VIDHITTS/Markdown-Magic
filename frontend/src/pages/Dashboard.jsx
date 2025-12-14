@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import {
   Plus,
   Code,
   Trash2,
-  Edit,
   Eye,
   Calendar,
   Search,
@@ -142,7 +141,7 @@ const Dashboard = ({ user, setUser, theme, toggleTheme }) => {
             className="browse-nav-btn"
             title="My Liked Projects"
           >
-            ❤️ Liked
+            Liked
           </button>
           <button
             onClick={() => navigate("/profile")}

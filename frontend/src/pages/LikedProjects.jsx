@@ -33,7 +33,6 @@ const LikedProjects = ({ user, setUser, theme, toggleTheme }) => {
         navigate("/login");
       }
     } catch (error) {
-      console.error("Error fetching liked projects:", error);
     } finally {
       setLoading(false);
     }
@@ -50,11 +49,9 @@ const LikedProjects = ({ user, setUser, theme, toggleTheme }) => {
       );
 
       if (response.ok) {
-        // Remove the project from the list
         setProjects(projects.filter((project) => project.id !== projectId));
       }
     } catch (error) {
-      console.error("Error unliking project:", error);
     }
   };
 
@@ -79,7 +76,6 @@ const LikedProjects = ({ user, setUser, theme, toggleTheme }) => {
         alert(data.message);
       }
     } catch (error) {
-      console.error("Error forking project:", error);
     }
   };
 
@@ -130,7 +126,7 @@ const LikedProjects = ({ user, setUser, theme, toggleTheme }) => {
             className="browse-nav-btn"
             title="My Liked Projects"
           >
-            ❤️ Liked
+            Liked
           </button>
           <button
             onClick={() => navigate("/profile")}
@@ -148,7 +144,7 @@ const LikedProjects = ({ user, setUser, theme, toggleTheme }) => {
       <div className="liked-content">
         <div className="liked-header">
           <div className="header-text">
-            <h2>❤️ My Liked Projects</h2>
+            <h2>My Liked Projects</h2>
             <p>Projects you've shown love to</p>
           </div>
           <button
@@ -156,7 +152,7 @@ const LikedProjects = ({ user, setUser, theme, toggleTheme }) => {
             onClick={fetchLikedProjects}
             disabled={loading}
           >
-            🔄 Refresh
+            Refresh
           </button>
         </div>
 
@@ -167,7 +163,6 @@ const LikedProjects = ({ user, setUser, theme, toggleTheme }) => {
             {projects.length === 0 ? (
               <div className="no-projects">
                 <div className="empty-state">
-                  <span className="empty-icon">💔</span>
                   <h3>No liked projects yet</h3>
                   <p>
                     Explore the Browse page and like projects that inspire you!
@@ -208,8 +203,8 @@ const LikedProjects = ({ user, setUser, theme, toggleTheme }) => {
                     <div className="project-footer">
                       <div className="project-meta">
                         <div className="stat-group">
-                          <span className="stat">❤️ {project.likesCount}</span>
-                          <span className="stat">🍴 {project.forksCount}</span>
+                          <span className="stat">{project.likesCount} Likes</span>
+                          <span className="stat">{project.forksCount} Forks</span>
                           <span className="stat">
                             Liked {formatDate(project.likedAt)}
                           </span>
