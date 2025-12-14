@@ -4,6 +4,10 @@ from authService.router import router as auth_router
 from storageService.router import router as storage_router
 from feedService.router import router as feed_router
 from config.db import engine, Base
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI(title="SnapCode API")
 
@@ -12,10 +16,15 @@ def startup_event():
     """Create database tables on startup"""
     Base.metadata.create_all(bind=engine)
 
-# CORS configuration
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
+allowed_origins = [FRONTEND_URL]
+
+if FRONTEND_URL == "http://localhost:5173":
+    allowed_origins.append("http://localhost:5174")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:5174"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
