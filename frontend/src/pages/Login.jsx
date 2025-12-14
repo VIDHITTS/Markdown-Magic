@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "motion/react";
+import { API_URL } from "../config/api.js";
 import "../styles/Auth.css";
 
 const Login = ({ setUser, theme, toggleTheme }) => {
@@ -26,7 +27,7 @@ const Login = ({ setUser, theme, toggleTheme }) => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:3000/api/auth/login", {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,7 +40,7 @@ const Login = ({ setUser, theme, toggleTheme }) => {
 
       if (response.ok) {
         // Fetch full user data after login
-        const meResponse = await fetch("http://localhost:3000/api/auth/me", {
+        const meResponse = await fetch(`${API_URL}/api/auth/me`, {
           credentials: "include",
         });
         if (meResponse.ok) {

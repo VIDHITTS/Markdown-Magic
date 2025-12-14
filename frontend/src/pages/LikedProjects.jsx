@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sun, Moon, Home } from "lucide-react";
+import { API_URL } from "../config/api.js";
 import "../styles/LikedProjects.css";
 
 const LikedProjects = ({ user, setUser, theme, toggleTheme }) => {
@@ -18,7 +19,7 @@ const LikedProjects = ({ user, setUser, theme, toggleTheme }) => {
     try {
       setLoading(true);
       const response = await fetch(
-        "http://localhost:3000/api/feed/user/likes",
+        `${API_URL}/api/feed/user/likes`,
         {
           credentials: "include",
         }
@@ -41,7 +42,7 @@ const LikedProjects = ({ user, setUser, theme, toggleTheme }) => {
   const handleUnlike = async (projectId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/feed/unlike/${projectId}`,
+        `${API_URL}/api/feed/unlike/${projectId}`,
         {
           method: "DELETE",
           credentials: "include",
@@ -64,7 +65,7 @@ const LikedProjects = ({ user, setUser, theme, toggleTheme }) => {
   const handleFork = async (projectId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/feed/fork/${projectId}`,
+        `${API_URL}/api/feed/fork/${projectId}`,
         {
           method: "POST",
           credentials: "include",

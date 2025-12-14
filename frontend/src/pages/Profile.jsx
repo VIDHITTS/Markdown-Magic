@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { ArrowLeft, Sun, Moon, LogOut, User, Mail } from "lucide-react";
+import { API_URL } from "../config/api.js";
 import "../styles/Profile.css";
 
 const Profile = ({ user, setUser, theme, toggleTheme }) => {
@@ -9,7 +10,7 @@ const Profile = ({ user, setUser, theme, toggleTheme }) => {
 
     const handleLogout = async () => {
         try {
-            await fetch("http://localhost:3000/api/auth/logout", {
+            await fetch(`${API_URL}/api/auth/logout`, {
                 method: "POST",
                 credentials: "include",
             });

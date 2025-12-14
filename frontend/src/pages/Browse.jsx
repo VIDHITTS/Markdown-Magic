@@ -13,6 +13,7 @@ import {
   User,
 } from "lucide-react";
 import LikesModal from "../components/LikesModal.jsx";
+import { API_URL } from "../config/api.js";
 import "../styles/Browse.css";
 
 const Browse = ({ user, theme, toggleTheme }) => {
@@ -33,7 +34,7 @@ const Browse = ({ user, theme, toggleTheme }) => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:3000/api/feed/browse?page=${page}&limit=12&sortBy=${sortBy}`,
+        `${API_URL}/api/feed/browse?page=${page}&limit=12&sortBy=${sortBy}`,
         {
           credentials: "include",
         }
@@ -54,7 +55,7 @@ const Browse = ({ user, theme, toggleTheme }) => {
     try {
       const endpoint = isLiked ? "unlike" : "like";
       const response = await fetch(
-        `http://localhost:3000/api/feed/${endpoint}/${projectId}`,
+        `${API_URL}/api/feed/${endpoint}/${projectId}`,
         {
           method: isLiked ? "DELETE" : "POST",
           credentials: "include",
@@ -89,7 +90,7 @@ const Browse = ({ user, theme, toggleTheme }) => {
   const handleFork = async (projectId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/feed/fork/${projectId}`,
+        `${API_URL}/api/feed/fork/${projectId}`,
         {
           method: "POST",
           credentials: "include",

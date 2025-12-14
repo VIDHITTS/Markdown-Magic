@@ -9,6 +9,7 @@ import Selector from "../components/Selector.jsx";
 import UserEditor from "../components/UserEditor.jsx";
 import Output from "../components/Output.jsx";
 import EditorSidebar from "../components/EditorSidebar.jsx";
+import { API_URL } from "../config/api.js";
 import "../styles/Editor.css";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
@@ -63,7 +64,7 @@ export default function Editor({ user, theme, toggleTheme }) {
 
     const fetchProject = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/api/code/${id}`, {
+            const response = await fetch(`${API_URL}/api/code/${id}`, {
                 credentials: "include",
             });
 
@@ -92,7 +93,7 @@ export default function Editor({ user, theme, toggleTheme }) {
         if (!silent) setSaving(true);
 
         try {
-            const response = await fetch(`http://localhost:3000/api/code/${id}`, {
+            const response = await fetch(`${API_URL}/api/code/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -120,7 +121,7 @@ export default function Editor({ user, theme, toggleTheme }) {
 
         try {
             const response = await fetch(
-                `http://localhost:3000/api/code/${id}/metadata`,
+                `${API_URL}/api/code/${id}/metadata`,
                 {
                     method: "PATCH",
                     headers: {

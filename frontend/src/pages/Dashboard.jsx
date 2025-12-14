@@ -12,6 +12,7 @@ import {
   Sun,
   Moon,
 } from "lucide-react";
+import { API_URL } from "../config/api.js";
 import "../styles/Dashboard.css";
 
 const Dashboard = ({ user, setUser, theme, toggleTheme }) => {
@@ -32,7 +33,7 @@ const Dashboard = ({ user, setUser, theme, toggleTheme }) => {
 
   const fetchProjects = async (retryCount = 0) => {
     try {
-      const response = await fetch("http://localhost:3000/api/code/all", {
+      const response = await fetch(`${API_URL}/api/code/all`, {
         credentials: "include",
       });
 
@@ -57,7 +58,7 @@ const Dashboard = ({ user, setUser, theme, toggleTheme }) => {
   const handleCreateProject = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/api/code/create", {
+      const response = await fetch(`${API_URL}/api/code/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -86,7 +87,7 @@ const Dashboard = ({ user, setUser, theme, toggleTheme }) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/api/code/${id}`, {
+      const response = await fetch(`${API_URL}/api/code/${id}`, {
         method: "DELETE",
         credentials: "include",
       });

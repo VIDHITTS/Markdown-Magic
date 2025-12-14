@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_URL } from "../config/api.js";
 import "../styles/LikesModal.css";
 
 const LikesModal = ({ projectId, isOpen, onClose }) => {
@@ -15,7 +16,7 @@ const LikesModal = ({ projectId, isOpen, onClose }) => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:3000/api/feed/${projectId}/likes`,
+        `${API_URL}/api/feed/${projectId}/likes`,
         {
           credentials: "include",
         }

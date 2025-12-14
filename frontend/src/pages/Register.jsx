@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "motion/react";
+import { API_URL } from "../config/api.js";
 import "../styles/Auth.css";
 
 const Register = ({ setUser, theme, toggleTheme }) => {
@@ -35,7 +36,7 @@ const Register = ({ setUser, theme, toggleTheme }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/api/auth/register", {
+      const response = await fetch(`${API_URL}/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,7 +54,7 @@ const Register = ({ setUser, theme, toggleTheme }) => {
 
       if (response.ok) {
         // Fetch full user data after registration
-        const meResponse = await fetch("http://localhost:3000/api/auth/me", {
+        const meResponse = await fetch(`${API_URL}/api/auth/me`, {
           credentials: "include",
         });
         if (meResponse.ok) {

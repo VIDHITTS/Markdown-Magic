@@ -13,6 +13,7 @@ import Editor from "./pages/Editor.jsx";
 import Profile from "./pages/Profile.jsx";
 import Browse from "./pages/Browse.jsx";
 import LikedProjects from "./pages/LikedProjects.jsx";
+import { API_URL } from "./config/api.js";
 import "./App.css";
 
 export default function App() {
@@ -34,7 +35,7 @@ export default function App() {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/auth/me", {
+      const response = await fetch(`${API_URL}/api/auth/me`, {
         credentials: "include",
       });
 
