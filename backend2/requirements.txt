@@ -2,7 +2,7 @@ fastapi
 uvicorn[standard]
 gunicorn
 sqlalchemy
-pymysql
+psycopg2-binary
 python-dotenv
 python-jose[cryptography]
 passlib[argon2]
