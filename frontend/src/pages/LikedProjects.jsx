@@ -18,12 +18,9 @@ const LikedProjects = ({ user, setUser, theme, toggleTheme }) => {
   const fetchLikedProjects = async () => {
     try {
       setLoading(true);
-      const response = await fetch(
-        `${API_URL}/api/feed/user/likes`,
-        {
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${API_URL}/api/feed/user/likes`, {
+        credentials: "include",
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -40,19 +37,15 @@ const LikedProjects = ({ user, setUser, theme, toggleTheme }) => {
 
   const handleUnlike = async (projectId) => {
     try {
-      const response = await fetch(
-        `${API_URL}/api/feed/unlike/${projectId}`,
-        {
-          method: "DELETE",
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${API_URL}/api/feed/unlike/${projectId}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
 
       if (response.ok) {
         setProjects(projects.filter((project) => project.id !== projectId));
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const handleViewProject = (projectId) => {
@@ -61,13 +54,10 @@ const LikedProjects = ({ user, setUser, theme, toggleTheme }) => {
 
   const handleFork = async (projectId) => {
     try {
-      const response = await fetch(
-        `${API_URL}/api/feed/fork/${projectId}`,
-        {
-          method: "POST",
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${API_URL}/api/feed/fork/${projectId}`, {
+        method: "POST",
+        credentials: "include",
+      });
 
       const data = await response.json();
       if (response.ok) {
@@ -75,8 +65,7 @@ const LikedProjects = ({ user, setUser, theme, toggleTheme }) => {
       } else {
         alert(data.message);
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const formatDate = (dateString) => {
@@ -203,8 +192,12 @@ const LikedProjects = ({ user, setUser, theme, toggleTheme }) => {
                     <div className="project-footer">
                       <div className="project-meta">
                         <div className="stat-group">
-                          <span className="stat">{project.likesCount} Likes</span>
-                          <span className="stat">{project.forksCount} Forks</span>
+                          <span className="stat">
+                            {project.likesCount} Likes
+                          </span>
+                          <span className="stat">
+                            {project.forksCount} Forks
+                          </span>
                           <span className="stat">
                             Liked {formatDate(project.likedAt)}
                           </span>

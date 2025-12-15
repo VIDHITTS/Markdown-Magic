@@ -15,12 +15,9 @@ const LikesModal = ({ projectId, isOpen, onClose }) => {
   const fetchLikes = async () => {
     try {
       setLoading(true);
-      const response = await fetch(
-        `${API_URL}/api/feed/${projectId}/likes`,
-        {
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${API_URL}/api/feed/${projectId}/likes`, {
+        credentials: "include",
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -39,8 +36,7 @@ const LikesModal = ({ projectId, isOpen, onClose }) => {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2>
-            Liked by {likes.length}{" "}
-            {likes.length === 1 ? "person" : "people"}
+            Liked by {likes.length} {likes.length === 1 ? "person" : "people"}
           </h2>
           <button className="modal-close" onClick={onClose}>
             ×

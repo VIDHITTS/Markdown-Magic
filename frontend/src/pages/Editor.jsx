@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
-    ResizableHandle,
-    ResizablePanel,
-    ResizablePanelGroup,
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import Selector from "../components/Selector.jsx";
 import UserEditor from "../components/UserEditor.jsx";
@@ -15,130 +15,125 @@ import JSZip from "jszip";
 import { saveAs } from "file-saver";
 
 export default function Editor({ user, theme, toggleTheme }) {
-    const { id } = useParams();
-    const navigate = useNavigate();
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-    const [htmlcode, sethtmlcode] = useState("<h1>Hello World!</h1>");
-    const [csscode, setcsscode] = useState("h1{color:#00ff00}");
-    const [jscode, setjscode] = useState('console.log("Hello from JS")');
-    const [tab, settab] = useState("html");
-    const [consoledata, setconsoledata] = useState([]);
-    const [show, setconsole] = useState(false);
-    const [showonlypreview, setshowpreview] = useState(false);
-    const [projectTitle, setProjectTitle] = useState("Untitled Project");
-    const [projectDescription, setProjectDescription] = useState("");
-    const [loading, setLoading] = useState(true);
-    const [saving, setSaving] = useState(false);
+  const [htmlcode, sethtmlcode] = useState("<h1>Hello World!</h1>");
+  const [csscode, setcsscode] = useState("h1{color:#00ff00}");
+  const [jscode, setjscode] = useState('console.log("Hello from JS")');
+  const [tab, settab] = useState("html");
+  const [consoledata, setconsoledata] = useState([]);
+  const [show, setconsole] = useState(false);
+  const [showonlypreview, setshowpreview] = useState(false);
+  const [projectTitle, setProjectTitle] = useState("Untitled Project");
+  const [projectDescription, setProjectDescription] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
 
-    useEffect(() => {
-        if (id) {
-            fetchProject();
-        } else {
-            setLoading(false);
-        }
-    }, [id]);
+  useEffect(() => {
+    if (id) {
+      fetchProject();
+    } else {
+      setLoading(false);
+    }
+  }, [id]);
 
-    useEffect(() => {
-        const handler = (e) => {
-            if (e.data.type === "console") {
-                setconsoledata((prev) => {
-                    const message = e.data.args.join(" ");
-                    return [...prev, message];
-                });
-            }
-        };
-        window.addEventListener("message", handler);
-        return () => window.removeEventListener("message", handler);
-    }, []);
-
-
-    useEffect(() => {
-        if (!id || loading) return;
-
-        const timer = setTimeout(() => {
-            handleSave(true);
-        }, 2000);
-
-        return () => clearTimeout(timer);
-    }, [htmlcode, csscode, jscode]);
-
-    const fetchProject = async () => {
-        try {
-            const response = await fetch(`${API_URL}/api/code/${id}`, {
-                credentials: "include",
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                const project = data.project;
-
-                setProjectTitle(project.title);
-                setProjectDescription(project.description || "");
-                sethtmlcode(project.htmlCode || "<h1>Hello World!</h1>");
-                setcsscode(project.cssCode || "h1{color:#00ff00}");
-                setjscode(project.jsCode || 'console.log("Hello from JS")');
-            } else if (response.status === 401) {
-                navigate("/login");
-            }
-        } catch (error) {
-        } finally {
-            setLoading(false);
-        }
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.data.type === "console") {
+        setconsoledata((prev) => {
+          const message = e.data.args.join(" ");
+          return [...prev, message];
+        });
+      }
     };
+    window.addEventListener("message", handler);
+    return () => window.removeEventListener("message", handler);
+  }, []);
 
-    const handleSave = async (silent = false) => {
-        if (!id) return;
+  useEffect(() => {
+    if (!id || loading) return;
 
-        if (!silent) setSaving(true);
+    const timer = setTimeout(() => {
+      handleSave(true);
+    }, 2000);
 
-        try {
-            const response = await fetch(`${API_URL}/api/code/${id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-                body: JSON.stringify({
-                    htmlCode: htmlcode,
-                    cssCode: csscode,
-                    jsCode: jscode,
-                }),
-            });
+    return () => clearTimeout(timer);
+  }, [htmlcode, csscode, jscode]);
 
-            if (!response.ok && response.status === 401) {
-                navigate("/login");
-            }
-        } catch (error) {
-        } finally {
-            if (!silent) setSaving(false);
-        }
-    };
+  const fetchProject = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/code/${id}`, {
+        credentials: "include",
+      });
 
-    const handleUpdateMetadata = async (title, description) => {
-        if (!id) return;
+      if (response.ok) {
+        const data = await response.json();
+        const project = data.project;
 
-        try {
-            const response = await fetch(
-                `${API_URL}/api/code/${id}/metadata`,
-                {
-                    method: "PATCH",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    credentials: "include",
-                    body: JSON.stringify({ title, description }),
-                }
-            );
+        setProjectTitle(project.title);
+        setProjectDescription(project.description || "");
+        sethtmlcode(project.htmlCode || "<h1>Hello World!</h1>");
+        setcsscode(project.cssCode || "h1{color:#00ff00}");
+        setjscode(project.jsCode || 'console.log("Hello from JS")');
+      } else if (response.status === 401) {
+        navigate("/login");
+      }
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
+  };
 
-            if (response.ok) {
-                setProjectTitle(title);
-                setProjectDescription(description);
-            }
-        } catch (error) {
-        }
-    };
+  const handleSave = async (silent = false) => {
+    if (!id) return;
 
-    const usercode = `<html>
+    if (!silent) setSaving(true);
+
+    try {
+      const response = await fetch(`${API_URL}/api/code/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          htmlCode: htmlcode,
+          cssCode: csscode,
+          jsCode: jscode,
+        }),
+      });
+
+      if (!response.ok && response.status === 401) {
+        navigate("/login");
+      }
+    } catch (error) {
+    } finally {
+      if (!silent) setSaving(false);
+    }
+  };
+
+  const handleUpdateMetadata = async (title, description) => {
+    if (!id) return;
+
+    try {
+      const response = await fetch(`${API_URL}/api/code/${id}/metadata`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ title, description }),
+      });
+
+      if (response.ok) {
+        setProjectTitle(title);
+        setProjectDescription(description);
+      }
+    } catch (error) {}
+  };
+
+  const usercode = `<html>
     <head><style>${csscode}</style></head>
     <body>${htmlcode}
       <script>
@@ -149,80 +144,80 @@ export default function Editor({ user, theme, toggleTheme }) {
     </body>
     </html>`;
 
-    const value = tab === "html" ? htmlcode : tab === "css" ? csscode : jscode;
+  const value = tab === "html" ? htmlcode : tab === "css" ? csscode : jscode;
 
-    const onChange = (e) => {
-        if (tab === "html") sethtmlcode(e.target.value);
-        else if (tab === "css") setcsscode(e.target.value);
-        else setjscode(e.target.value);
-    };
+  const onChange = (e) => {
+    if (tab === "html") sethtmlcode(e.target.value);
+    else if (tab === "css") setcsscode(e.target.value);
+    else setjscode(e.target.value);
+  };
 
-    const downloadZip = () => {
-        const zip = new JSZip();
-        zip.file("index.html", htmlcode);
-        zip.file("style.css", csscode);
-        zip.file("script.js", jscode);
-        zip.generateAsync({ type: "blob" }).then((content) => {
-            saveAs(content, `${projectTitle || "project"}.zip`);
-        });
-    };
+  const downloadZip = () => {
+    const zip = new JSZip();
+    zip.file("index.html", htmlcode);
+    zip.file("style.css", csscode);
+    zip.file("script.js", jscode);
+    zip.generateAsync({ type: "blob" }).then((content) => {
+      saveAs(content, `${projectTitle || "project"}.zip`);
+    });
+  };
 
-    if (loading) {
-        return (
-            <div className="editor-loading">
-                <div className="spinner"></div>
-                <p>Loading project...</p>
-            </div>
-        );
-    }
-
+  if (loading) {
     return (
-        <div className="app-container">
-            <EditorSidebar
-                theme={theme}
-                toggleTheme={toggleTheme}
-                showonlypreview={showonlypreview}
-                setshowpreview={setshowpreview}
-                downloadZip={downloadZip}
-                onSave={() => handleSave(false)}
-                saving={saving}
-                projectTitle={projectTitle}
-                projectDescription={projectDescription}
-                onUpdateMetadata={handleUpdateMetadata}
-                user={user}
-            />
-            <div className="main-content">
-                {showonlypreview ? (
-                    <Output
-                        usercode={usercode}
-                        show={show}
-                        setconsole={setconsole}
-                        consoledata={consoledata}
-                        setconsoledata={setconsoledata}
-                    />
-                ) : (
-                    <div className="main-magic">
-                        <ResizablePanelGroup direction="horizontal">
-                            <ResizablePanel>
-                                <div className="user-magic">
-                                    <Selector tab={tab} settab={settab} />
-                                    <UserEditor tab={tab} value={value} onChange={onChange} />
-                                </div>
-                            </ResizablePanel>
-                            <ResizableHandle withHandle />
-                            <ResizablePanel>
-                                <Output
-                                    usercode={usercode}
-                                    show={show}
-                                    setconsole={setconsole}
-                                    consoledata={consoledata}
-                                    setconsoledata={setconsoledata}
-                                />
-                            </ResizablePanel>
-                        </ResizablePanelGroup>
-                    </div>
-                )}
-            </div>
-        </div>
+      <div className="editor-loading">
+        <div className="spinner"></div>
+        <p>Loading project...</p>
+      </div>
     );
+  }
+
+  return (
+    <div className="app-container">
+      <EditorSidebar
+        theme={theme}
+        toggleTheme={toggleTheme}
+        showonlypreview={showonlypreview}
+        setshowpreview={setshowpreview}
+        downloadZip={downloadZip}
+        onSave={() => handleSave(false)}
+        saving={saving}
+        projectTitle={projectTitle}
+        projectDescription={projectDescription}
+        onUpdateMetadata={handleUpdateMetadata}
+        user={user}
+      />
+      <div className="main-content">
+        {showonlypreview ? (
+          <Output
+            usercode={usercode}
+            show={show}
+            setconsole={setconsole}
+            consoledata={consoledata}
+            setconsoledata={setconsoledata}
+          />
+        ) : (
+          <div className="main-magic">
+            <ResizablePanelGroup direction="horizontal">
+              <ResizablePanel>
+                <div className="user-magic">
+                  <Selector tab={tab} settab={settab} />
+                  <UserEditor tab={tab} value={value} onChange={onChange} />
+                </div>
+              </ResizablePanel>
+              <ResizableHandle withHandle />
+              <ResizablePanel>
+                <Output
+                  usercode={usercode}
+                  show={show}
+                  setconsole={setconsole}
+                  consoledata={consoledata}
+                  setconsoledata={setconsoledata}
+                />
+              </ResizablePanel>
+            </ResizablePanelGroup>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }

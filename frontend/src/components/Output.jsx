@@ -19,10 +19,7 @@ export default function Output({
           {show ? "HIDE CONSOLE" : "SHOW CONSOLE"}
         </button>
       </div>
-      <iframe
-        srcDoc={usercode}
-        className="preview-frame"
-      />
+      <iframe srcDoc={usercode} className="preview-frame" />
       {show && (
         <ConsolePanel
           consoledata={consoledata}

@@ -78,19 +78,15 @@ const Browse = ({ user, theme, toggleTheme }) => {
       } else if (response.status === 401) {
         navigate("/login");
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const handleFork = async (projectId) => {
     try {
-      const response = await fetch(
-        `${API_URL}/api/feed/fork/${projectId}`,
-        {
-          method: "POST",
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${API_URL}/api/feed/fork/${projectId}`, {
+        method: "POST",
+        credentials: "include",
+      });
 
       const data = await response.json();
       if (response.ok) {
@@ -100,8 +96,7 @@ const Browse = ({ user, theme, toggleTheme }) => {
       } else {
         alert(data.message);
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const handleViewProject = (projectId) => {
