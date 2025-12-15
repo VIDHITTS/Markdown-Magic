@@ -48,6 +48,8 @@ def register(request: RegisterRequest, response: Response, db: Session = Depends
         key="authToken",
         value=token,
         httponly=True,
+        secure=True,
+        samesite="none",
         max_age=7 * 24 * 60 * 60,
         path="/"
     )
@@ -83,6 +85,8 @@ def login(request: LoginRequest, response: Response, db: Session = Depends(get_d
         key="authToken",
         value=token,
         httponly=True,
+        secure=True,
+        samesite="none",
         max_age=7 * 24 * 60 * 60,
         path="/"
     )
@@ -100,7 +104,7 @@ def login(request: LoginRequest, response: Response, db: Session = Depends(get_d
 
 def logout(response: Response):
     """Logout user"""
-    response.delete_cookie(key="authToken", path="/")
+    response.delete_cookie(key="authToken", path="/", secure=True, samesite="none")
     return {"message": "User logged out successfully"}
 
 def get_me(current_user: dict, db: Session = Depends(get_db)):
