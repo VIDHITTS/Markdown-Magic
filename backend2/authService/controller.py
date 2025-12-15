@@ -17,8 +17,6 @@ class LoginRequest(BaseModel):
     password: str
 
 def register(request: RegisterRequest, response: Response, db: Session = Depends(get_db)):
-    """Register a new user"""
-    # Check if user exists
     existing_user = db.query(User).filter(
         (User.email == request.email) | (User.username == request.username)
     ).first()
@@ -26,7 +24,6 @@ def register(request: RegisterRequest, response: Response, db: Session = Depends
     if existing_user:
         raise HTTPException(status_code=400, detail="User already exists")
     
-    # Create new user
     hashed_pwd = hash_password(request.password)
     new_user = User(
         id=str(uuid.uuid4()),
@@ -40,10 +37,8 @@ def register(request: RegisterRequest, response: Response, db: Session = Depends
     db.commit()
     db.refresh(new_user)
     
-    # Create token
     token = create_access_token({"userId": new_user.id})
     
-    # Set cookie
     response.set_cookie(
         key="authToken",
         value=token,
@@ -66,21 +61,16 @@ def register(request: RegisterRequest, response: Response, db: Session = Depends
     }
 
 def login(request: LoginRequest, response: Response, db: Session = Depends(get_db)):
-    """Login user"""
-    # Find user
     user = db.query(User).filter(User.username == request.username).first()
     
     if not user:
         raise HTTPException(status_code=400, detail="User not found")
     
-    # Verify password
     if not verify_password(request.password, user.password):
         raise HTTPException(status_code=400, detail="Invalid password")
     
-    # Create token
     token = create_access_token({"userId": user.id})
     
-    # Set cookie
     response.set_cookie(
         key="authToken",
         value=token,
@@ -103,12 +93,10 @@ def login(request: LoginRequest, response: Response, db: Session = Depends(get_d
     }
 
 def logout(response: Response):
-    """Logout user"""
     response.delete_cookie(key="authToken", path="/", secure=True, samesite="none")
     return {"message": "User logged out successfully"}
 
 def get_me(current_user: dict, db: Session = Depends(get_db)):
-    """Get current user info"""
     user = db.query(User).filter(User.id == current_user["userId"]).first()
     
     if not user:

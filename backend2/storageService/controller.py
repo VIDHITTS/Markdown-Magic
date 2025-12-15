@@ -22,7 +22,6 @@ class UpdateMetadataRequest(BaseModel):
     isPublic: Optional[bool] = None
 
 def create_project(request: CreateProjectRequest, current_user: dict, db: Session = Depends(get_db)):
-    """Create a new project"""
     new_project = Project(
         id=str(uuid.uuid4()),
         title=request.title,
@@ -54,7 +53,6 @@ def create_project(request: CreateProjectRequest, current_user: dict, db: Sessio
     }
 
 def get_all_projects(current_user: dict, db: Session = Depends(get_db)):
-    """Get all user projects"""
     projects = db.query(Project).filter(Project.userId == current_user["userId"]).all()
     
     return {
@@ -76,7 +74,6 @@ def get_all_projects(current_user: dict, db: Session = Depends(get_db)):
     }
 
 def get_project_by_id(id: str, db: Session = Depends(get_db)):
-    """Get project by ID"""
     project = db.query(Project).filter(Project.id == id).first()
     
     if not project:
@@ -98,7 +95,6 @@ def get_project_by_id(id: str, db: Session = Depends(get_db)):
     }
 
 def delete_project(id: str, current_user: dict, db: Session = Depends(get_db)):
-    """Delete a project"""
     project = db.query(Project).filter(Project.id == id).first()
     
     if not project:
@@ -110,7 +106,6 @@ def delete_project(id: str, current_user: dict, db: Session = Depends(get_db)):
     return {"message": "Codes deleted successfully"}
 
 def update_code(id: str, request: UpdateCodeRequest, current_user: dict, db: Session = Depends(get_db)):
-    """Update project code"""
     project = db.query(Project).filter(Project.id == id).first()
     
     if not project:
@@ -139,7 +134,6 @@ def update_code(id: str, request: UpdateCodeRequest, current_user: dict, db: Ses
     }
 
 def update_metadata(id: str, request: UpdateMetadataRequest, current_user: dict, db: Session = Depends(get_db)):
-    """Update project metadata"""
     project = db.query(Project).filter(Project.id == id).first()
     
     if not project:

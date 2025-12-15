@@ -13,7 +13,6 @@ app = FastAPI(title="SnapCode API")
 
 @app.on_event("startup")
 def startup_event():
-    """Create database tables on startup"""
     Base.metadata.create_all(bind=engine)
 
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
@@ -30,7 +29,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include routers
 app.include_router(auth_router)
 app.include_router(storage_router)
 app.include_router(feed_router)

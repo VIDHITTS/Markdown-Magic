@@ -13,27 +13,19 @@ def get_public_projects(
     current_user: Optional[dict] = None,
     db: Session = Depends(get_db)
 ):
-    """Browse public projects with pagination and sorting"""
     skip = (page - 1) * limit
     
-    # Base query for public projects
     query = db.query(Project).filter(Project.isPublic == True)
     
-    # Apply sorting
     if sortBy == "popular":
         query = query.outerjoin(Like).group_by(Project.id).order_by(desc(func.count(Like.id)))
     elif sortBy == "forks":
         query = query.outerjoin(Fork).group_by(Project.id).order_by(desc(func.count(Fork.id)))
-    else:  # recent
+    else:
         query = query.order_by(desc(Project.createdAt))
     
-    # Get total count
     total = db.query(Project).filter(Project.isPublic == True).count()
-    
-    # Get paginated projects
     projects = query.offset(skip).limit(limit).all()
-    
-    # Format response
     result_projects = []
     for project in projects:
         likes_count = db.query(Like).filter(Like.projectId == project.id).count()
@@ -76,13 +68,10 @@ def get_public_projects(
     }
 
 def like_project(id: str, current_user: dict, db: Session = Depends(get_db)):
-    """Like a project"""
-    # Check if project exists
     project = db.query(Project).filter(Project.id == id).first()
     if not project:
         raise HTTPException(status_code=404, detail="Project not found")
     
-    # Check if already liked
     existing_like = db.query(Like).filter(
         Like.projectId == id,
         Like.userId == current_user["userId"]
@@ -91,7 +80,6 @@ def like_project(id: str, current_user: dict, db: Session = Depends(get_db)):
     if existing_like:
         raise HTTPException(status_code=400, detail="Already liked")
     
-    # Create like
     new_like = Like(
         id=str(uuid.uuid4()),
         userId=current_user["userId"],
@@ -104,7 +92,6 @@ def like_project(id: str, current_user: dict, db: Session = Depends(get_db)):
     return {"message": "Project liked successfully"}
 
 def unlike_project(id: str, current_user: dict, db: Session = Depends(get_db)):
-    """Unlike a project"""
     like = db.query(Like).filter(
         Like.projectId == id,
         Like.userId == current_user["userId"]
@@ -119,13 +106,10 @@ def unlike_project(id: str, current_user: dict, db: Session = Depends(get_db)):
     return {"message": "Project unliked successfully"}
 
 def fork_project(id: str, current_user: dict, db: Session = Depends(get_db)):
-    """Fork a project"""
-    # Get original project
     original_project = db.query(Project).filter(Project.id == id).first()
     if not original_project:
         raise HTTPException(status_code=404, detail="Project not found")
     
-    # Create forked project
     forked_project = Project(
         id=str(uuid.uuid4()),
         title=f"{original_project.title} (Fork)",
@@ -140,7 +124,6 @@ def fork_project(id: str, current_user: dict, db: Session = Depends(get_db)):
     
     db.add(forked_project)
     
-    # Create fork record
     fork_record = Fork(
         id=str(uuid.uuid4()),
         userId=current_user["userId"],
@@ -160,13 +143,10 @@ def fork_project(id: str, current_user: dict, db: Session = Depends(get_db)):
     }
 
 def get_project_likes(id: str, db: Session = Depends(get_db)):
-    """Get project likes"""
-    # Check if project exists
     project = db.query(Project).filter(Project.id == id).first()
     if not project:
         raise HTTPException(status_code=404, detail="Project not found")
     
-    # Get likes
     likes = db.query(Like).filter(Like.projectId == id).all()
     
     result_likes = []
@@ -187,8 +167,6 @@ def get_project_likes(id: str, db: Session = Depends(get_db)):
     }
 
 def get_user_likes(current_user: dict, db: Session = Depends(get_db)):
-    """Get user's liked projects"""
-    # Get user's likes
     likes = db.query(Like).filter(Like.userId == current_user["userId"]).order_by(desc(Like.createdAt)).all()
     
     result_projects = []
