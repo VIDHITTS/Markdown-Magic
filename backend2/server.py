@@ -37,7 +37,7 @@ app.include_router(feed_router)
 
 @app.get("/")
 def read_root():
-    return {"message": "Hello World!"}
+    return {"message": "Heo World!"}
 
 if __name__ == "__main__":
     import uvicorn
